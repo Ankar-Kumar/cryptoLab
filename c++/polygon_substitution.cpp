@@ -4,53 +4,76 @@ using namespace std;
 map<string, string> encoder;
 map<string, string> decoder;
 
-string cipherText(string &str)
+string cipherText(string &str, int block_size)
 {
     string cipher, temp;
 
     for (int i=0;i<str.size();i++)
     {
-        char ch=str[i];
-        if (isalpha(ch))
+        // char ch=str[i];
+        temp += str[i];
+        if (temp.size() == block_size)
         {
-            temp += ch;
             if (encoder.find(temp) != encoder.end())
             {
                 cipher += encoder[temp];
-                temp="";
+                temp = "";
             }
-        }
-        else
-        {
-            cipher += ch;
-        }
+            else
+            {
+                cipher += temp;
+                temp = "";
+            }
+            }        
+    }
+    if (encoder.find(temp) != encoder.end())
+    {
+        cipher += encoder[temp];
+        temp = "";
+    }
+    else
+    {
+        cipher += temp;
+        temp = "";
     }
 
     return cipher;
 }
 
-string decipherText(string &str)
+string decipherText(string &str, int block_size)
 {
     string decipher, temp;
 
     for (int i = 0; i < str.size(); i++)
     {
-        char ch = str[i];
-        if (isalpha(ch))
+        // char ch=str[i];
+        temp += str[i];
+        if (temp.size() == block_size)
         {
-            temp += ch;
             if (decoder.find(temp) != decoder.end())
             {
                 decipher += decoder[temp];
-                temp="";
+                temp = "";
+            }
+            else
+            {
+                decipher += temp;
+                temp = "";
             }
         }
-        else
-        {
-            decipher += ch;
-        }
+    }
+    if (decoder.find(temp) != decoder.end())
+    {
+        decipher += decoder[temp];
+        temp = "";
+    }
+    else
+    {
+        decipher += temp;
+        temp = "";
     }
 
+    
     return decipher;
 }
 
@@ -70,8 +93,8 @@ int main()
     }
     int block_size=3;
     // Perform encryption and decryption
-    string cipher = cipherText(str);
-    string decipher = decipherText(cipher);
+    string cipher = cipherText(str, block_size);
+    string decipher = decipherText(cipher, block_size);
 
     // Output the results
     cout << "Plain-Text: " << str << endl;
