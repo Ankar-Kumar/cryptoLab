@@ -14,7 +14,7 @@ string cipherText(string str, string key)
         }
         else if (islower(ch))
         {
-            ch = (ch - 'a' + key[i] - 'A') % 26 + 'a';
+            ch = (ch - 'a' + key[i] - 'a') % 26 + 'a';
         }
         cipher += ch;
     }
@@ -33,7 +33,7 @@ string decipherText(string str, string key)
         }
         else if (islower(ch))
         {
-            ch = (ch - 'a' - key[i] + 'A' + 26) % 26 + 'a';
+            ch = (ch - 'a' - key[i] + 'a' + 26) % 26 + 'a';
         }
         decipher += ch;
     }
