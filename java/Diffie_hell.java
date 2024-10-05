@@ -1,4 +1,4 @@
-class Diffie_hell{
+class Diffie_hell{ //must follow lehman.cpp
     public static int power(int m,int n,int p){
         // for handling big integer  m^n %p 
 
